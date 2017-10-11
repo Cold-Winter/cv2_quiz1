@@ -85,7 +85,8 @@ dup_37 = duplicate_37(image)
 mask2 = susan(image,dup_37,dx,dy,1.2)
 imshow(mask2)
 '''
-We can draw a conclusion the SUSAN operator may not be robust for the noise of this image
+We can see it can after SUSAN operator, the corner are mixed with the noise pixel.
+We can draw a conclusion the SUSAN operator may not be robust for the white noise of this image
 '''
 
 #4.3
@@ -94,9 +95,10 @@ gaussion = gaussFilter(sigma=1,window=10)
 
 noiseimg = conv(image,gaussion,mode='same')
 imshow(noiseimg)
-mask3 = susan(image,dup_37,dx,dy,1.2)
+mask3 = susan(noiseimg,dup_37,dx,dy,1.2)
 imshow(mask3)
 '''
+Firstly I smooth the images with Gaussian kernel, then we can find that the algorithm can also detect the corners.
 SUSAN operator may be robust for smooth images.
 '''
 

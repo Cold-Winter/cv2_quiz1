@@ -57,7 +57,7 @@ clip = clipping(imname)
 imshow(np.concatenate((image,hisEqualImg,clip),axis=1))
 #5.3
 '''
-If c is larger, the image will be brighter  
+If c is larger, the image will be brighter.  
 ''' 
 clist = [1,10,100,100]
 imageout = []
