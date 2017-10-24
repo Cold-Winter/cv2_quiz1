@@ -126,7 +126,7 @@ def harriscornerslow(img,thresh=0.2,sigma=1,window=3):
     mask[cornerness<=thresh]=0
 
     return mask
-image = imread('../Images/input2.png')
+image = imread('../Images/input3.png')
 if len(image.shape)==3:
     image = image[:,:,0]
 start = time.time()
