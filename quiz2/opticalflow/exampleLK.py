@@ -4,6 +4,8 @@ import cv2
 #cap = cv2.VideoCapture('slow.flv')
 old_frame = cv2.imread('basketball1.png')
 
+
+
 # params for ShiTomasi corner detection
 feature_params = dict( maxCorners = 100,
                        qualityLevel = 0.3,
@@ -28,8 +30,9 @@ mask = np.zeros_like(old_frame)
 
 
 frame = cv2.imread('basketball2.png')
-print frame.shape
+
 frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
 
 # calculate optical flow
 p1, st, err = cv2.calcOpticalFlowPyrLK(old_gray, frame_gray, p0, None, **lk_params)
@@ -45,9 +48,11 @@ for i,(new,old) in enumerate(zip(good_new,good_old)):
     mask = cv2.line(mask, (a,b),(c,d), color[i].tolist(), 2)
     frame = cv2.circle(frame,(a,b),5,color[i].tolist(),-1)
 img = cv2.add(frame,mask)
+print img
 
-cv2.imshow('frame',frame)
-k = cv2.waitKey(30) & 0xff
+cv2.imshow('frame',img)
+
+k = cv2.waitKey(100000) & 0xff
 
 
 # Now update the previous frame and previous points

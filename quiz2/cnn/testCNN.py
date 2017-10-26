@@ -44,11 +44,11 @@ parser.add_argument('--batch_size',
                     help='Batch size. Must divide evenly into the dataset sizes.')
 parser.add_argument('--input_data_dir',
                     type=str,
-                    default='../mnist/data',
+                    default='./mnist/data',
                     help='Directory to put the training data.')
 parser.add_argument('--expanded_data',
                     type=str,
-                    default='../mnist/data/mnist_expanded.pkl.gz',
+                    default='./mnist/data/mnist_expanded.pkl.gz',
                     help='Directory to put the extended mnist data.')
 parser.add_argument('--log_dir',
                     type=str,
@@ -75,6 +75,9 @@ mode = int(sys.argv[1])
 
 data_sets = input_data.read_data_sets(FLAGS.input_data_dir)
 
+outfile = open('output'+str(mode)+'.txt','w')
+
+
 # ======================================================================
 #  STEP 1: Train a baseline model.
 #  This trains a feed forward neural network with one hidden layer.
@@ -82,12 +85,16 @@ data_sets = input_data.read_data_sets(FLAGS.input_data_dir)
 
 if mode == 1:
   cnn = ConvNet(1)
-  accuracy = cnn.train_and_evaluate(FLAGS, data_sets.train, data_sets.test)
+  accuracy = cnn.train_and_evaluate(FLAGS, data_sets.train, data_sets.test,outfile)
 
   # Output accuracy.
   print(20 * '*' + 'model 1' + 20 * '*')
   print('accuracy is %f' % (accuracy))
   print()
+
+ 
+  
+  
 
 
 
@@ -97,7 +104,7 @@ if mode == 1:
 
 if mode == 2:
   cnn = ConvNet(2)
-  accuracy = cnn.train_and_evaluate(FLAGS, data_sets.train, data_sets.test)
+  accuracy = cnn.train_and_evaluate(FLAGS, data_sets.train, data_sets.test,outfile)
 
   # Output accuracy.
   print(20 * '*' + 'model 2' + 20 * '*')
@@ -113,7 +120,7 @@ if mode == 2:
 if mode == 3:
   FLAGS.learning_rate = 0.03
   cnn = ConvNet(3)
-  accuracy = cnn.train_and_evaluate(FLAGS, data_sets.train, data_sets.test)
+  accuracy = cnn.train_and_evaluate(FLAGS, data_sets.train, data_sets.test,outfile)
 
   # Output accuracy.
   print(20 * '*' + 'model 3' + 20 * '*')
@@ -129,7 +136,7 @@ if mode == 3:
 if mode == 4:
   FLAGS.learning_rate = 0.03
   cnn = ConvNet(4)
-  accuracy = cnn.train_and_evaluate(FLAGS, data_sets.train, data_sets.test)
+  accuracy = cnn.train_and_evaluate(FLAGS, data_sets.train, data_sets.test,outfile)
 
   # Output accuracy.
   print(20 * '*' + 'model 4' + 20 * '*')
@@ -147,9 +154,14 @@ if mode == 5:
   FLAGS.num_epochs    = 40
   FLAGS.hiddenSize    = 1000
   cnn = ConvNet(5)
-  accuracy = cnn.train_and_evaluate(FLAGS, data_sets.train, data_sets.test)
+  accuracy = cnn.train_and_evaluate(FLAGS, data_sets.train, data_sets.test,outfile)
 
   # Output accuracy.
   print(20 * '*' + 'model 5' + 20 * '*')
   print('accuracy is %f' % (accuracy))
   print()
+
+outfile.write(20 * '*' + 'model '+str(mode) + 20 * '*'+'\n')
+outfile.write('accuracy is %f /n' % (accuracy))
+
+
